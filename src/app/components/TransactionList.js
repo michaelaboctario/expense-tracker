@@ -16,7 +16,7 @@ const TransactionList = () => {
 									${transaction.type === 'expense' ?
 									'text-danger' : 'text-success'}`}>
 						<div>
-							<h4>{transaction.description} - {transaction.amount}&euro;</h4>
+							<h4>{transaction.description}  {transaction.type === 'expense' ? "Dépense" : "Revenu"} {transaction.amount}&euro;</h4>
 							<small className="text-muted">{transaction.date}</small>
 						</div>
 						<div>

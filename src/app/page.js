@@ -7,17 +7,19 @@ import AddTransaction from './components/AddTransaction';
 import Header from  './components/Header';
 import TransactionList from './components/TransactionList';
 import { GlobalProvider } from './context/GlobalState';
+import Balance from './components/Balance';
+import Container from './components/Container';
 
 const ExpenseTracker = () => {
 	
 	return (
 		<GlobalProvider >
-			<div className="container bg-light mt-5 p-5 
-						border border-dark col-md-8">
-            		<Header />
-			      <AddTransaction />
- 			      <TransactionList />
-			</div>
+			<Container>
+            	<Header />
+			    <Balance />
+				<AddTransaction />
+ 			    <TransactionList />
+			</Container>
 		</GlobalProvider>
 		
 	);

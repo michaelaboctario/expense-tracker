@@ -29,12 +29,12 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  console.log(addTransaction);
+  //console.log(addTransaction);
   
   return (<GlobalContext.Provider value={{
     transactions: state.transactions,
-    deleteTransaction: deleteTransaction,
-    addTransaction: addTransaction
+    deleteTransaction,
+    addTransaction
   }}>
     {children}
   </GlobalContext.Provider>);

@@ -4,29 +4,28 @@ import React, {useState, useContext} from 'react';
 import { GlobalContext } from '../context/GlobalState';
 
 const AddTransaction = () => {
-	const currentDate = new Date;
+	//const currentDate = new Date;
 	const [description, setDescription] = useState('');
 	const [amount, setAmount] = useState(0);
 	const [date, setDate] = useState('');
 	const [type, setType] = useState('expense'); // Default to expense
 	const { transactions, addTransaction } = useContext(GlobalContext);
   
-	//console.log(GlobalContext);
-	//console.log(addTransaction);
-	console.log(date);
+	const invalidValues = !description.trim() || Number(amount) == 0 || !date;
 	const handleAddTransaction = () => {
+		if (invalidValues) return;
 		const newTransaction = {
 				id: transactions.length + 1,
 				description,
-				amount, 
+				amount: Number(amount), 
 				type,
 				date
 			}
+			setAmount('');
+			setDate('');
+			setDescription('');
+			setType('expense');
 		addTransaction(newTransaction);
-		setAmount('');
-		setDate('');
-		setDescription('');
-		setType('expense');
 	}
 	
 	return (
@@ -36,7 +35,7 @@ const AddTransaction = () => {
 					type="text"
 					className="form-control"
 					placeholder="Description"
-					/* value={description} */
+					value={description}
 					onChange={e => setDescription(e.target.value)}
 				/>
 			</div>
@@ -47,7 +46,7 @@ const AddTransaction = () => {
 							type="number"
 							className="form-control"
 							placeholder="Total"
-							/* value={amount} */
+							value={amount}
 							onChange={e => setAmount(e.target.value)}
 						/>
 					</div>
@@ -58,7 +57,7 @@ const AddTransaction = () => {
 							type="date"
 							className="form-control"
 							placeholder="MM/DD/YYYY"
-							/* value={date} */
+							value={date}
 							onChange={e => setDate(e.target.value)}
 						/>
 					</div>
@@ -66,7 +65,7 @@ const AddTransaction = () => {
 				<div className="col-md-4">
 					<div className="mb-3">
 						<select className="form-select"
-								/* value={type}  */
+								value={type}
 								onChange={e => setType(e.target.value)}>
 							<option value="expense">Dépense</option>
 							<option value="income">Revenu</option>
@@ -78,6 +77,7 @@ const AddTransaction = () => {
 
 				<div className="col-md-6">
 					<button className="btn btn-primary"
+							disabled={invalidValues}
 							onClick={handleAddTransaction}>
 						Ajouter Transaction
 					</button>
